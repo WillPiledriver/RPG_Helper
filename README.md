@@ -9,4 +9,4 @@ You can have multiple different rolls in a set by using a semicolon "__;__" as a
 Example:
 **"1d6;2d10+5;5d100+25*3"** will roll one d6, two d10s + 5, and five d100s +25 three times
 
-Input "q" to exit loops
+Input "__q__" to exit loops
