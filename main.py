@@ -19,22 +19,15 @@ def main():
 def menu():
     options = {"Roll dice": roll, "Custom Dice": custom}
 
-    print("\n\n")
-    i = 1
-    print("*" * 20)
-    for k in options:
-        print("[{}] {}".format(i, k))
-        i += 1
-    print("*" * 20)
-    list(options.values())[int(input("Choice: "))-1]()
+    tools.print_menu(list(options.keys()))
+    choice = input("Choice: ")
+    if choice.lower() == "q":
+        quit(0)
+    list(options.values())[int(choice)-1]()
 
 
 def roll(dice=None):
-    if dice is not None:
-        q = True
-    else:
-        q = False
-
+    q = dice is not None
     while True:
         if dice is None:
             dice = input("Dice: ")
@@ -71,11 +64,7 @@ def custom():
     while True:
         m = ["New custom roll"] + list(customs.keys()) + ["Delete custom roll"]
 
-        print("\n\n" + "*" * 20)
-        for i in range(len(m)):
-            print("[{}] {}".format(i+1, m[i]))
-
-        print("*" * 20)
+        tools.print_menu(m)
 
         choice = input("Choice: ")
         if choice.lower() == "q":
