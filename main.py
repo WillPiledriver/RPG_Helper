@@ -18,12 +18,14 @@ def main():
 
 def menu():
     options = {"Roll dice": roll, "Custom Dice": custom}
-
     tools.print_menu(list(options.keys()))
     choice = input("Choice: ")
-    if choice.lower() == "q":
-        quit(0)
-    list(options.values())[int(choice)-1]()
+
+    try:
+        list(options.values())[int(choice)-1]()
+    except:
+        if choice.lower() == "q":
+            quit(0)
 
 
 def roll(dice=None):
@@ -36,24 +38,25 @@ def roll(dice=None):
 
         dice_set = dice.split(";")
 
-        r = range(len(dice_set))
-
-        for d in r:
-            dice = dice_set[d]
-            print("[{}]:".format(dice))
-            dice_mult = dice.split("*")
-            multi = 1
-            if len(dice_mult) > 1:
-                multi = int(dice_mult[1])
-            dice = dice_mult[0]
-            dice_split = dice.split("+")
-            for i in range(multi):
-                if len(dice_split) > 1:
-                    result = tools.roll(dice_split[0], int(dice_split[1]))
-                else:
-                    result = tools.roll(dice)
-                print("\tRoll {}: {}".format(i+1, result))
-            print("")
+        try:
+            for d in range(len(dice_set)):
+                dice = dice_set[d]
+                print("[{}]:".format(dice))
+                dice_mult = dice.split("*")
+                multi = 1
+                if len(dice_mult) > 1:
+                    multi = int(dice_mult[1])
+                dice = dice_mult[0]
+                dice_split = dice.split("+")
+                for i in range(multi):
+                    if len(dice_split) > 1:
+                        result = tools.roll(dice_split[0], int(dice_split[1]))
+                    else:
+                        result = tools.roll(dice)
+                    print("\tRoll {}: {}".format(i+1, result))
+                print("")
+        except Exception as e:
+            print(e)
 
         if q:
             return
@@ -63,10 +66,9 @@ def roll(dice=None):
 def custom():
     while True:
         m = ["New custom roll"] + list(customs.keys()) + ["Delete custom roll"]
-
         tools.print_menu(m)
-
         choice = input("Choice: ")
+
         if choice.lower() == "q":
             return
         else:
