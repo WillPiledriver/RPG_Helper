@@ -26,6 +26,7 @@ def menu():
     except:
         if choice.lower() == "q":
             quit(0)
+        print("Please enter valid option or enter \"Q\" to exit.")
 
 
 def roll(dice=None):
@@ -56,6 +57,7 @@ def roll(dice=None):
                     print("\tRoll {}: {}".format(i+1, result))
                 print("")
         except Exception as e:
+            print("Something went terribly wrong.")
             print(e)
 
         if q:
